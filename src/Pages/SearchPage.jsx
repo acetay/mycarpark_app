@@ -3,6 +3,7 @@ import { CarparkContext } from '../Context/CarparkContext';
 import Loading_icon from '../images/spinner.gif';
 import * as geolib from 'geolib';
 import axios from 'axios';
+import FilterCarpark from '../components/FilterCarpark';
 
 const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
@@ -137,6 +138,7 @@ function SearchPage() {
               Here are where the search filters are i.e. distance radius, free
               parking...
             </div>
+            <FilterCarpark cp={results} />
           </div>
         )
       )}
