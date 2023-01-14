@@ -25,6 +25,9 @@ function CarparkContextProvider({ children }) {
     location: '', // in string
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [toggleNight, setToggleNight] = useState(false);
+  const [toggleFree, setToggleFree] = useState(false);
+
 
   useEffect(() => {
     fetchCarparks();
@@ -117,6 +120,10 @@ function CarparkContextProvider({ children }) {
     user,
     isLoading,
     setIsLoading,
+    toggleNight,
+    setToggleNight,
+    toggleFree,
+    setToggleFree
   };
 
   return (
