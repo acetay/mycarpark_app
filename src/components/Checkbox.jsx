@@ -1,19 +1,18 @@
-import { useState } from "react";
-
-function Checkbox({ label }) {
-  const [isChecked, setIsChecked] = useState(false);
-
+function Checkbox({ label, handleChange, value }) {
   return (
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={() => setIsChecked((prev) => !prev)}
-        />
-        <span>{label}</span>
-      </label>
-    </div>
+    <>
+      <div className="form-control">
+        <label className="label cursor-pointer">
+          <span className="label-text mr-3 text-md font-semibold">{label}</span>
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            className="checkbox checkbox-primary"
+            checked={value}
+          />
+        </label>
+      </div>
+    </>
   );
 }
 
