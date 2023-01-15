@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
+    "build": "^0.1.4",
     "classnames": "^2.3.2",
     "daisyui": "^2.46.1",
     "geolib": "^3.3.3",
