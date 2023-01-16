@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useMemo } from 'react';
 import { CarparkContext } from '../Context/CarparkContext';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -10,6 +10,7 @@ import HDB from '../images/HDB.png';
 import * as geolib from 'geolib';
 import axios from 'axios';
 
+import SideBar from '../components/SideBar';
 import Dropdown from '../components/Dropdown';
 import Checkbox from '../components/Checkbox.jsx';
 import Pagination from '../components/Pagination';
@@ -19,8 +20,14 @@ import MapModalFull from '../components/MapModalFull';
 const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
 function SearchPage() {
-  const { user, isLoading, carparks, triggerZoom, setTriggerZoom } =
-    useContext(CarparkContext); // states from context
+  const {
+    user,
+    isLoading,
+    carparks,
+    triggerZoom,
+    setTriggerZoom,
+    setOpenSideBar,
+  } = useContext(CarparkContext); // states from context
   const [results, setResults] = useState([]); // New list of carparks with distances
   const [preferredDist, setPreferredDist] = useState(1); // User's choice of distance radius
   const [query, setQuery] = useState(''); // Search field query entered by user
@@ -29,15 +36,15 @@ function SearchPage() {
   const [nightParking, setNightParking] = useState(false); //Night Parking
   const [resultsLoader, setResultsLoader] = useState(false);
   const [searchResultLocation, setSearchResultLocation] = useState('');
-  const [copyArray, setCopyArray] = useState([]);
-  const [querySearchCoords, setQuerySearchCoords] = useState(null);
+  const [copyArray, setCopyArray] = useState([]); // Copy of search results for sorting and pagination
+  const [querySearchCoords, setQuerySearchCoords] = useState(null); // For display of search results
 
   useEffect(() => {
     setCopyArray(results);
   }, [results]);
 
   // Pagination Logic
-  const [numOfCpPerPage, setNumOfCpPerPage] = useState(10);
+  const [numOfCpPerPage, setNumOfCpPerPage] = useState(9);
   const [page, setPage] = useState(1);
   const lastIndex = page * numOfCpPerPage;
   const firstIndex = lastIndex - numOfCpPerPage;
@@ -138,8 +145,6 @@ function SearchPage() {
     } catch (e) {
       console.log(e.message);
     }
-  const newResults = [...results]
-
   };
 
   //setState for filtering distance
@@ -150,16 +155,16 @@ function SearchPage() {
 
   // filter options
   const options = [
-    { label: "Within 1 KM", value: "1" },
-    { label: "Within 2 KM", value: "2" },
-    { label: "Within 3 KM", value: "3" },
-    { label: "Within 4 KM", value: "4" },
-    { label: "Within 5 KM", value: "5" },
-    { label: "Within 6 KM", value: "6" },
-    { label: "Within 7 KM", value: "7" },
-    { label: "Within 8 KM", value: "8" },
-    { label: "Within 9 KM", value: "9" },
-    { label: "Within 10 KM", value: "10" },
+    { label: 'Within 1 KM', value: '1' },
+    { label: 'Within 2 KM', value: '2' },
+    { label: 'Within 3 KM', value: '3' },
+    { label: 'Within 4 KM', value: '4' },
+    { label: 'Within 5 KM', value: '5' },
+    { label: 'Within 6 KM', value: '6' },
+    { label: 'Within 7 KM', value: '7' },
+    { label: 'Within 8 KM', value: '8' },
+    { label: 'Within 9 KM', value: '9' },
+    { label: 'Within 10 KM', value: '10' },
   ];
   //setState for Free and Night Parking
   const handleFreeParkingChange = () => {
@@ -168,15 +173,27 @@ function SearchPage() {
   const handleNightParkingChange = () => {
     setNightParking((prev) => !prev);
   };
+
   return (
-    <>
-      <div className="absolute top-3 right-8 p-4 cursor-pointer">
-        <GiHamburgerMenu size={34} color={'gray'} />
-      </div>
+    <div>
+      {/* HAMBURGER */}
+      {!isLoading && (
+        <div className="sticky top-0">
+          <div className="absolute top-0 right-0 p-4 cursor-pointer">
+            <GiHamburgerMenu
+              onClick={() => setOpenSideBar(true)}
+              size={34}
+              color={'gray'}
+            />
+          </div>
+        </div>
+      )}
+      {/* HDB LOGO */}
 
       <div className="absolute top-0 left-3 p-8 cursor-pointer w-[40%] sm:w-[30%] md:w-[25%] lg:w-[20%]">
         <img src={HDB} alt="HDB" />
       </div>
+      <SideBar setResults={setResults} />
 
       {isLoading ? (
         <div className="h-[100vh] flex flex-col justify-center items-center pb-16">
@@ -191,7 +208,10 @@ function SearchPage() {
         </div>
       ) : (
         user.name && (
-          <div className="min-h-[100vh] h-auto flex flex-col justify-start items-center px-24 gap-4 pt-40">
+          <div
+            onClick={() => setOpenSideBar(false)}
+            className="min-h-[100vh] h-auto flex flex-col justify-start items-center px-24 gap-4 pt-40"
+          >
             <div className="flex flex-col justify-center items-center">
               <p className="text-5xl tracking-wide text-center">
                 Hello,{' '}
@@ -238,7 +258,7 @@ function SearchPage() {
                     Search other locations!
                   </h1>
                   {/* Search Form Input field */}
-                  <div className="input-group flex justify-center">
+                  <div className="z-[10] input-group flex justify-center">
                     <input
                       name={query}
                       value={query}
@@ -291,7 +311,7 @@ function SearchPage() {
             {results.length > 0 ? (
               <>
                 <p className="text-md text-gray-400 text-center">
-                  {results.length} carparks found near "
+                  {copyArray.length} carparks found near "
                   <span>{searchResultLocation.replace('Singapore', 'SG')}</span>
                   "
                 </p>
@@ -317,14 +337,21 @@ function SearchPage() {
                   page={page}
                   setCopyArray={setCopyArray}
                   copyArray={copyArray}
+                  setPage={setPage}
+                  user={user}
+                  triggerZoom={triggerZoom}
                 />
               </>
             ) : (
               <>
                 {resultsLoader ? (
-                  <>
-                    <img className="h-40 w-40" src={Loader} alt="Loader" />
-                  </>
+                  <div>
+                    <img
+                      className="h-40 w-40 justify-center items-center"
+                      src={Loader}
+                      alt="Loader"
+                    />
+                  </div>
                 ) : (
                   <>
                     <p className="text-orange-700 mt-16">No search results</p>
@@ -341,7 +368,7 @@ function SearchPage() {
           </div>
         )
       )}
-    </>
+    </div>
   );
 }
 
