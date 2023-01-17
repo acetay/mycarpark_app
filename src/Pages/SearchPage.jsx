@@ -192,6 +192,10 @@ function SearchPage() {
 
       <div className="absolute top-0 left-3 p-8 cursor-pointer w-[40%] sm:w-[30%] md:w-[25%] lg:w-[20%]">
         <img src={HDB} alt="HDB" />
+        <p className="text-red-600 pt-2 hidden lg:flex">
+          This website is used for our gp project. We are not affiliated with
+          HDB in any way.
+        </p>
       </div>
       <SideBar setResults={setResults} />
 
@@ -215,7 +219,7 @@ function SearchPage() {
             <div className="flex flex-col justify-center items-center">
               <p className="text-5xl tracking-wide text-center">
                 Hello,{' '}
-                <span className="font-bold text-red-400 text-6xl tracking-wide text-center">
+                <span className="font-bold text-blue-400 text-6xl tracking-wide text-center">
                   {user.name}
                 </span>
                 !

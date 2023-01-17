@@ -3,7 +3,7 @@ import './App.css';
 
 import {
   Navigate,
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -11,6 +11,8 @@ import {
 import Layout from './Layouts/Layout';
 import SearchPage from './Pages/SearchPage';
 import HomePage from './Pages/HomePage';
+import PassengerLanding from './Pages/PassengerLanding';
+import HelpLanding from './Pages/HelpLanding';
 
 import { CarparkContext } from './Context/CarparkContext';
 
@@ -22,6 +24,11 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route
+            path="/passenger/:userlocale/:username"
+            element={<PassengerLanding />}
+          />
+          <Route path="/help/:userlocale/:username" element={<HelpLanding />} />
           <Route
             path="/search"
             element={!signIn ? <Navigate to="/" /> : <SearchPage />}

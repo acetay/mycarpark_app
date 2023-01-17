@@ -1,24 +1,51 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { CarparkContext } from '../Context/CarparkContext';
+import styles from './SideBar.module.css';
 
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { AiOutlineGlobal } from 'react-icons/ai';
 
+import SosHelp from './SosHelp';
+
+import ReactWhatsapp from 'react-whatsapp';
+
 function SideBar() {
-  const { signout, openSideBar, setOpenSideBar, setResults } =
+  const { signout, openSideBar, setOpenSideBar, setResults, user } =
     useContext(CarparkContext);
+  const [passengerHp, setPassengerHp] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const redirect = useNavigate();
+
+  useEffect(() => {
+    if (passengerHp.length > 7) {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  }, [passengerHp]);
 
   const logout = () => {
     signout();
     setResults([]);
     setOpenSideBar(() => false);
-
     redirect('/');
   };
+
+  const handlerForPassHp = (e) => {
+    setPassengerHp(e.target.value);
+  };
+
+  const clear = () => {
+    setPassengerHp('');
+  };
+
+  const message = `Hello, i've reached! Please use this link find out where i am parked - \n http://localhost:3000/passenger/${user.location}/${user.name}`;
+
   return (
-    <div className="sidebar sticky top-0 min-h-full z-[50] shadow-lg">
+    <div
+      className={`${styles.sidebar} sidebar sticky top-0 min-h-full z-[50] shadow-lg`}
+    >
       {/* Sidebar */}
       <div
         className={`${
@@ -44,7 +71,7 @@ function SideBar() {
         <nav className="mt-12">
           <div>
             <p className="text-lg font-semibold text-yellow-400">
-              *** New *** Come find me!
+              1. *** New *** Come find me!
             </p>
             <p className="text-md text-green-200">
               Ever had difficulty of getting your passengers finding out your
@@ -54,17 +81,26 @@ function SideBar() {
               Enter passenger's HP:
             </h1>
             <input
+              onChange={handlerForPassHp}
+              value={passengerHp}
               type="text"
-              placeholder="+65"
+              placeholder="Exclude +65"
               className="input input-bordered input-primary w-full max-w-xs mt-3 text-gray-500"
             />
             <div className="flex justify-start mt-4 ml-2">
-              <button className="btn btn-success btn-sm">Send</button>
+              {btnDisabled && (
+                <ReactWhatsapp number={`+65${passengerHp}`} message={message}>
+                  <p onClick={clear} className="btn btn-success btn-sm">
+                    Send
+                  </p>
+                </ReactWhatsapp>
+              )}
             </div>
           </div>
+          <SosHelp user={user} />
           <button
             onClick={logout}
-            className="mt-20 p-2 text-white border border-white rounded-md hover:text-green-300 hover:border-green-300"
+            className="mt-8 p-2 text-white border border-white rounded-md hover:text-green-300 hover:border-green-300 md:mt-10  "
           >
             Sign out
           </button>
