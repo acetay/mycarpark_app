@@ -10,8 +10,8 @@ import SosHelp from './SosHelp';
 
 import ReactWhatsapp from 'react-whatsapp';
 
-function SideBar() {
-  const { signout, openSideBar, setOpenSideBar, setResults, user } =
+function SideBar({ setResults }) {
+  const { signout, openSideBar, setOpenSideBar, user } =
     useContext(CarparkContext);
   const [passengerHp, setPassengerHp] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(false);

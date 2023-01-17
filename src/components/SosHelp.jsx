@@ -21,7 +21,7 @@ function SosHelp({ user }) {
       setnominatedPerson(() => null);
       setTrigger(false);
     }
-  }, [nominatedPerson]);
+  }, []);
 
   const handleChange = (e) => {
     setSosUser({ ...sosUser, [e.target.name]: e.target.value });
