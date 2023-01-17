@@ -87,7 +87,6 @@ function Form({ getUserData, setSignIn }) {
       }
       setError(errorData);
       console.log(errorData);
-
       return errorData;
     }
   };
