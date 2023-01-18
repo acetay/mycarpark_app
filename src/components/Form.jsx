@@ -76,7 +76,7 @@ function Form({ getUserData, setSignIn }) {
       const errorData = {};
       Swal.fire({
         title: 'Error!',
-        text: 'Please complete all fields, on check on user agreement',
+        text: 'Please complete all fields, and check on user agreement',
         icon: 'error',
         confirmButtonText: 'Okay!',
       });
@@ -87,14 +87,13 @@ function Form({ getUserData, setSignIn }) {
       }
       setError(errorData);
       console.log(errorData);
-
       return errorData;
     }
   };
 
   return (
     <div className="p-16 px-35 shadow-xl rounded-lg">
-      <h2 className="font-bold text-3xl mb-4">HDB Carpark App</h2>
+      <h2 className="font-bold text-3xl mb-4">Public Carpark App</h2>
       <form onSubmit={handlerOnSubmit}>
         {/* NAME INPUT */}
         <div className="flex flex-col items-baseline gap-2">

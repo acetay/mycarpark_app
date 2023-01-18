@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Loading_icon from '../images/signal.gif';
 import Loader from '../images/spinner.gif';
-import HDB from '../images/HDB.png';
+import Logo from '../images/Logo.png';
 
 import * as geolib from 'geolib';
 import axios from 'axios';
@@ -16,8 +16,6 @@ import Checkbox from '../components/Checkbox.jsx';
 import Pagination from '../components/Pagination';
 import Table from '../components/Table';
 import MapModalFull from '../components/MapModalFull';
-
-const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
 function SearchPage() {
   const {
@@ -105,9 +103,11 @@ function SearchPage() {
       setResultsLoader(true);
       // filter distance
       const response = await axios.get(
-        `${BASE_URL}${query}+singapore&key=${process.env.REACT_APP_API_KEY}`
+        `/.netlify/functions/geocodeAddrApi?query=${query}`
       );
-      const coords = response.data.results[0]?.geometry?.location;
+      // `${BASE_URL}${query}+singapore&key=${process.env.REACT_APP_API_KEY}`
+
+      const coords = response.data;
       if (coords.hasOwnProperty('lat')) {
         setQuerySearchCoords(coords);
         setSearchResultLocation(query);
@@ -136,7 +136,7 @@ function SearchPage() {
           return { ...item, colour: colourLots };
         });
 
-        console.log(listLotsColour);
+        // console.log(listLotsColour);
         setResults(() => [...listLotsColour]);
         setResultsLoader(false);
         setPage(1);
@@ -179,7 +179,7 @@ function SearchPage() {
       {/* HAMBURGER */}
       {!isLoading && (
         <div className="sticky top-0">
-          <div className="absolute top-0 right-0 p-4 cursor-pointer">
+          <div className="fixed top-0 right-0  p-4 cursor-pointer">
             <GiHamburgerMenu
               onClick={() => setOpenSideBar(true)}
               size={34}
@@ -190,10 +190,10 @@ function SearchPage() {
       )}
       {/* HDB LOGO */}
 
-      <div className="absolute top-0 left-3 p-8 cursor-pointer w-[40%] sm:w-[30%] md:w-[25%] lg:w-[20%]">
-        <img src={HDB} alt="HDB" />
+      <div className="absolute top-0 left-3 p-2 cursor-pointer w-[55%] sm:w-[40%] md:w-[40%] lg:w-[25%]">
+        <img className="mix-blend-multiply" src={Logo} alt="logo" />
       </div>
-      <SideBar setResults={setResults} />
+      <SideBar setResults={setResults} user={user} />
 
       {isLoading ? (
         <div className="h-[100vh] flex flex-col justify-center items-center pb-16">
@@ -215,7 +215,7 @@ function SearchPage() {
             <div className="flex flex-col justify-center items-center">
               <p className="text-5xl tracking-wide text-center">
                 Hello,{' '}
-                <span className="font-bold text-red-400 text-6xl tracking-wide text-center">
+                <span className="font-bold text-blue-400 text-6xl tracking-wide text-center">
                   {user.name}
                 </span>
                 !
