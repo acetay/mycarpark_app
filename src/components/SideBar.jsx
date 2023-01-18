@@ -1,25 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { CarparkContext } from '../Context/CarparkContext';
-import ReactWhatsapp from 'react-whatsapp';
 
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { AiOutlineGlobal } from 'react-icons/ai';
 
-function SideBar({user}) {
-  const [number, setNumber] = useState('');
-  const [buttonVisible, setButtonVisible] = useState(false);
-
+function SideBar() {
   const { signout, openSideBar, setOpenSideBar, setResults } =
     useContext(CarparkContext);
   const redirect = useNavigate();
-
-  useEffect(() => {
-  if (number.length >= 8){
-    setButtonVisible(true);
-  } else {
-    setButtonVisible(false);
-  }}, [number]);
 
   const logout = () => {
     signout();
@@ -27,10 +16,7 @@ function SideBar({user}) {
     setOpenSideBar(() => false);
 
     redirect('/');
-  }
-
-  const message = `Hello, I've reached the destination! Please follow this link to find where I'm parked.\n http://localhost:3000/passenger/${user.location}/${user.name}`;
-
+  };
   return (
     <div className="sidebar sticky top-0 min-h-full z-[50] shadow-lg">
       {/* Sidebar */}
@@ -69,20 +55,11 @@ function SideBar({user}) {
             </h1>
             <input
               type="text"
-              // placeholder="+65"
-              value={number}
-              onChange={e => setNumber(e.target.value)}
+              placeholder="+65"
               className="input input-bordered input-primary w-full max-w-xs mt-3 text-gray-500"
             />
             <div className="flex justify-start mt-4 ml-2">
-              {buttonVisible && 
-              <ReactWhatsapp 
-              number={number}
-              message={message}>
-              <p 
-              className="btn btn-success btn-sm">Send</p>
-              </ReactWhatsapp>
-              }
+              <button className="btn btn-success btn-sm">Send</button>
             </div>
           </div>
           <button

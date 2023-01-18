@@ -3,7 +3,7 @@ import './App.css';
 
 import {
   Navigate,
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -11,7 +11,6 @@ import {
 import Layout from './Layouts/Layout';
 import SearchPage from './Pages/SearchPage';
 import HomePage from './Pages/HomePage';
-import PassengerLandingPage from './Pages/PassengerLandingPage';
 
 import { CarparkContext } from './Context/CarparkContext';
 
@@ -27,7 +26,6 @@ function App() {
             path="/search"
             element={!signIn ? <Navigate to="/" /> : <SearchPage />}
           />
-          <Route path="/passenger/:driveraddress/:drivername" element={<PassengerLandingPage />} />
         </Routes>
       </Layout>
     </Router>
