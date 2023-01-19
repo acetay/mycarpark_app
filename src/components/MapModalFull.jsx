@@ -49,12 +49,14 @@ function MapModalFull({ results, user, triggerZoom, querySearchCoords }) {
       {/* MODAL */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box h-[100vh] w-[100vw] max-w-7xl flex flex-col justify-center items-center">
-          <h1 className="text-2xl pb-2 font-bold text-teal-600">Map view</h1>
+        <div className="modal-box relative w-[100vw] max-w-7xl h-full flex flex-col justify-center items-center">
+          <h1 className="text-2xl pb-2 font-bold text-teal-600 hidden md:block">
+            Map view
+          </h1>
           <GoogleMap
             center={center}
             zoom={zoom}
-            mapContainerStyle={{ width: '90%', height: '90%' }}
+            mapContainerStyle={{ width: '90%', height: '100%' }}
             onLoad={(map) => setMap(map)}
             options={
               {
@@ -118,10 +120,18 @@ function MapModalFull({ results, user, triggerZoom, querySearchCoords }) {
                   }}
                 >
                   <div className="flex flex-col justify-center items-center">
-                    <h1>{selectedMarker.address}</h1>
-                    <p>CP {selectedMarker.car_park_no}</p>
-                    <p>{selectedMarker.distance}km from searched location</p>
-                    <p>
+                    <h1 className="text-center font-bold text-blue-700">
+                      {selectedMarker.address
+                        .substring(0, 25)
+                        .replace('BLK', '')}
+                    </h1>
+                    <p className="text-center font-semibold">
+                      CP {selectedMarker.car_park_no}
+                    </p>
+                    <p className="text-center text-blue-500 font-semibold">
+                      {selectedMarker.distance}km from searched location
+                    </p>
+                    <p className="text-center font-bold">
                       {selectedMarker.carpark_info[0].lots_available} lots
                       available
                     </p>
@@ -146,18 +156,28 @@ function MapModalFull({ results, user, triggerZoom, querySearchCoords }) {
               </div>
             )}
           </GoogleMap>
-          <div className="flex flex-col justify-center items-center">
-            <BsSkipBackwardCircleFill
-              onClick={() => map.panTo(center)}
-              className="cursor-pointer mt-3"
-              size={20}
-            />
-            <p>Back</p>
-          </div>
-          <div className="modal-action">
-            <label htmlFor="my-modal" className="btn btn-success">
-              Close
-            </label>
+          <div className="flex md:flex-col md:items-center justify-center items-baseline gap-3">
+            <div className="flex flex-col justify-center items-center">
+              <BsSkipBackwardCircleFill
+                onClick={() => map.panTo(center)}
+                className="cursor-pointer mt-3"
+                size={20}
+              />
+              <p className="hidden md:flex">Back</p>
+            </div>
+            {/* <div className="modal-action">
+              <label
+                htmlFor="my-modal"
+                className="btn btn-success hidden md:flex md:btn-md md:text-md"
+              >
+                Close
+              </label>
+            </div> */}
+            <div className="modal-action absolute top-0 right-5 cursor-pointer">
+              <label htmlFor="my-modal" className="font-bold cursor-pointer">
+                X
+              </label>
+            </div>
           </div>
         </div>
       </div>
