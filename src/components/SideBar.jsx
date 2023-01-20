@@ -1,15 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useContext, useEffect } from 'react';
-import { CarparkContext } from '../Context/CarparkContext';
-import ReactWhatsapp from 'react-whatsapp';
+import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { CarparkContext } from "../Context/CarparkContext";
+import ReactWhatsapp from "react-whatsapp";
 
-import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { AiOutlineGlobal } from 'react-icons/ai';
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineGlobal } from "react-icons/ai";
 
-import SosHelp from './SosHelp';
+import SosHelp from "./SosHelp";
 
 function SideBar({ user, setResults }) {
-  const [number, setNumber] = useState('');
+  const [number, setNumber] = useState("");
   const [buttonVisible, setButtonVisible] = useState(false);
 
   const { signout, openSideBar, setOpenSideBar } = useContext(CarparkContext);
@@ -28,11 +28,11 @@ function SideBar({ user, setResults }) {
     setResults([]);
     setOpenSideBar(() => false);
 
-    redirect('/');
+    redirect("/");
   };
   // https://sensational-zabaione-393a34.netlify.app
-  const userLocation = user.location.replace(/\s/g, '%20');
-  const message = `Hello, I've reached the destination! Please click this link to find where I'm parked.\n http://localhost:8888/passenger/${userLocation}/${user.name}`;
+  const userLocation = user.location.replace(/\s/g, "%20");
+  const message = `Hello, I've reached the destination! Please click this link to find where I'm parked.\n https://lasagna-eating-orange-cat.netlify.app/passenger/${userLocation}/${user.name}`;
   // http://localhost:8888/
 
   return (
@@ -40,7 +40,7 @@ function SideBar({ user, setResults }) {
       {/* Sidebar */}
       <div
         className={`${
-          openSideBar ? 'visible translate-x-0 ' : 'invisible translate-x-full'
+          openSideBar ? "visible translate-x-0 " : "invisible translate-x-full"
         } ease-in-out overflow-scroll duration-300 top-0 fixed z-[30] right-0 min-h-full h-[100vh] bg-gray-900 text-teal-50 text-md w-full sm:w-[390px] md:z-[50] space-y-6 p-8`}
       >
         {/* Logo */}
@@ -81,7 +81,7 @@ function SideBar({ user, setResults }) {
               {buttonVisible && (
                 <ReactWhatsapp number={number} message={message}>
                   <p
-                    onClick={() => setNumber('')}
+                    onClick={() => setNumber("")}
                     className="btn btn-success btn-sm"
                   >
                     Send

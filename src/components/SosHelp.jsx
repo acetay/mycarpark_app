@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
-import ReactWhatsapp from 'react-whatsapp';
+import ReactWhatsapp from "react-whatsapp";
 
 function SosHelp({ user }) {
   const [nominatedPerson, setnominatedPerson] = useState(null);
   const [sosUser, setSosUser] = useState({
-    name: '',
-    hp: '',
+    name: "",
+    hp: "",
   });
   const [trigger, setTrigger] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
 
-  const personInStorage = JSON.parse(localStorage.getItem('nominee'));
+  const personInStorage = JSON.parse(localStorage.getItem("nominee"));
 
   useEffect(() => {
     if (personInStorage) {
@@ -38,29 +38,29 @@ function SosHelp({ user }) {
   };
 
   const nominate = () => {
-    if (sosUser.name !== '' && sosUser.hp.length > 7) {
-      localStorage.setItem('nominee', JSON.stringify(sosUser));
+    if (sosUser.name !== "" && sosUser.hp.length > 7) {
+      localStorage.setItem("nominee", JSON.stringify(sosUser));
       setnominatedPerson(sosUser);
       setTrigger(true);
-      setSosUser({ name: '', hp: '' });
+      setSosUser({ name: "", hp: "" });
     } else {
       setTrigger(false);
       Swal.fire({
-        title: 'Oppss',
-        text: 'Please enter al details above',
-        confirmButtonText: 'Okay!',
+        title: "Oppss",
+        text: "Please enter al details above",
+        confirmButtonText: "Okay!",
       });
     }
   };
 
   const clearNominee = () => {
-    localStorage.clear('nominee');
+    localStorage.clear("nominee");
     setnominatedPerson(null);
     setTrigger(false);
   };
   // https://sensational-zabaione-393a34.netlify.app
-  const userLocation = user.location.replace(/\s/g, '%20');
-  const message = `Help! Help! I'm in trouble! Please come find me thru this link - \n http://localhost:8888/help/${userLocation}/${user.name}`;
+  const userLocation = user.location.replace(/\s/g, "%20");
+  const message = `Help! Help! I'm in trouble! Please come find me thru this link - \n https://lasagna-eating-orange-cat.netlify.app/help/${userLocation}/${user.name}`;
   // http://localhost:8888/
   return (
     <div>
