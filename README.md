@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+Carpark Availability App
+Live Link
+https://sensational-zabaione-393a34.netlify.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+App can only be used in Singapore for searching of HDB carparks.
+App is best experienced using Chrome Browser.
+User must enable location setting on their browser or mobile phone.
+To experience features on navigation, passenger-driver communication or Driver SOS, App needs to run on a mobile phone (with Google map and Whatsapp)
+Starting the App from IDE
+npm install
+npm run netlify dev
+Description
+My Image The Carpark Availability App allows user:
 
-## Available Scripts
+To search for available lots in HDB-run carparks near their current location or a location of their choosing by using APIs to harness data from a variety of sources. (Primary)
+To navigate to carpark destinations using Google Direction. (Primary)
+To save carpark locations in localstorage as Favorites, to be retrieved for use in future. (Primary)
+To communicate with a passager via Whatsapp API on the driver's pickup location, along with walking routes for the passenger to reach a driver's location. (Add-on)
+To send SOS help signals to nominated person if a driver encounters any critical situations. Use-cases include (i.e. medical emergencies, dangerous situations, vehicle breakdown and etc.) (Add-on)
+Try out our project here!
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Important to note before using the app:
+No login is required
+The User Agreement is meant to seek user's consensus in releasing his/her current coordinates.
+User MUST enable location settings on their browsers for the application to work.
+This is a proof-of-concept application done as a group project for a software engineering course.
+Features
+User location tracking
+Carpark lot availability tracking (refreshed hourly)
+Table of results
+Search parameters (location, distance, free parking, night parking)
+Filtering of results (by distance, lots available, total lots)
+Ability to edit results (deletion of carparks with no lots availabile)
+Pagination
+Route planning for drivers (via driving)
+Login functionality
+Automatically generated message for passenger route planning (via walking)
+Emergency contact nomination
+One-click SOS
+Mobile responsiveness
+Dependencies
+Google Directions API
+Google Geocoding API
+Google Maps Javascript API
+@react-google-maps/api
+Geolib
+React Whatsapp
