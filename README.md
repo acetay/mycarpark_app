@@ -14,7 +14,6 @@ https://check-carpark-app.netlify.app/
 2. npm run netlify dev
 
 ## Description
-![My Image](Carpark_app.png)
 The Carpark Availability App allows user:
 1. To search for available lots in HDB-run carparks near their current location or a location of their choosing by using APIs to harness data from a variety of sources. (Primary)
 2. To navigate to carpark destinations using Google Direction. (Primary)
